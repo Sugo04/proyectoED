@@ -8,4 +8,5 @@ import LeerPartidos as lp
 import InfoEquipos as ie
 
 liga=lp.leerEquipos()
-print(liga)
+for i in liga:
+    print(i)
