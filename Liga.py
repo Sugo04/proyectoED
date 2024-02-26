@@ -6,7 +6,10 @@
 
 import LeerPartidos as lp
 import InfoEquipos as ie
+import Equipos as e
 
 liga=lp.leerEquipos()
-for i in liga:
-    print(i)
+
+equipos=e.Equipos(liga)
+
+ie.InfoEquipos(liga,equipos)

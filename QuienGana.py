@@ -7,7 +7,7 @@ def QuienGana(resultado):
     goles2 = resultado.split("-")[1]
     if goles1 > goles2:
         return 1
-    elif goles2 = goles2:
+    elif goles1 == goles2:
         return 0
     else:
         return -1
