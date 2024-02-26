@@ -58,6 +58,5 @@ def InfoEquipos(datosliga, equipos):
     # Ordenamos la lista según sus puntos saltandonos la primera fila, debemos utilizar la funcion CLasificacion
     infoEquipos=c.Clasificacion(infoEquipos[1:])
     
-    # Imprimimos los resultados en pantalla
-    for i in infoEquipos: 
-        print(i)
+    # Devolvemos los resultados en pantalla
+    return infoEquipos
