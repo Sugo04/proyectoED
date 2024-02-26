@@ -4,6 +4,7 @@
 # en cada tupla se guarda un equipo con los partidos ganados, empatados y perdidos y los puntos obtenidos.
 
 def InfoEquipos(datosliga, equipos):
+    #Importamos las demás funciones y le aplicamos un alias a cada una
     import QuienGana as qg
     import Puntos as p
     import Clasificacion as c
@@ -19,13 +20,17 @@ def InfoEquipos(datosliga, equipos):
         partGanados = 0
         partEmpatado = 0
         partPerdido = 0
-    
+
+        # Recorremos los datos de la liga
         for iPartido in datosliga:
             local = iPartido["Team 1"]
             visitante = iPartido["Team 2"]
             resultados= iPartido["FT"]
 
+            # Verificamos si el equipo estaba jugando como local, de no ser así
+            # será identificado como visitante
             if local == iEquipo:
+                # Verificamos el resultado del partido y sumamos +1 en el contador correspondiente
                 resultado= qg.QuienGana(resultados)
                 if resultado==1:
                     partGanados += 1
@@ -35,6 +40,7 @@ def InfoEquipos(datosliga, equipos):
                     partPerdido += 1
             
             elif visitante == iEquipo:
+                # Verificamos el resultado del partido y sumamos +1 en el contador correspondiente
                 resultado= qg.QuienGana(resultados)
                 if resultado==1:
                     partGanados += 1
@@ -42,13 +48,16 @@ def InfoEquipos(datosliga, equipos):
                     partEmpatado += 1
                 else:
                     partPerdido += 1
-        # Calculamos los puntos de cada equipo
+
+        # Calculamos los puntos de cada equipo, para ello accedemos a la funcion Puntos
         info=[iEquipo, partGanados, partEmpatado, partPerdido]
         puntos=p.Puntos(info)
         # Almacenamos los datos en una tupla y los agregamos a la lista de infoEquipos
         infoEquipos.append([iEquipo, partGanados, partEmpatado, partPerdido, puntos])
     
-    # Ordenamos la lista según sus puntos saltandonos la primera fila
+    # Ordenamos la lista según sus puntos saltandonos la primera fila, debemos utilizar la funcion CLasificacion
     infoEquipos=c.Clasificacion(infoEquipos[1:])
+    
+    # Imprimimos los resultados en pantalla
     for i in infoEquipos: 
         print(i)
