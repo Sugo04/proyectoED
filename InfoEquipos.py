@@ -43,8 +43,3 @@ def InfoEquipos(datosliga, equipos):
         infoEquipos.append((iEquipo, partGanados, partEmpatado, partPerdido))
 
     return infoEquipos
-
-
-
-
-
