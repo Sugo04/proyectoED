@@ -5,8 +5,11 @@
 
 def Puntos(info):
     # Utilizo [1:] para que comience desde la segunda fila, ya que sino escribirá la cabecera
-    #Recorremos cada equipo obtenida de la función InfoEquipos
+    # Recorremos cada equipo obtenida de la función InfoEquipos
     for equipo_info in info[1:]:  
         equipo = equipo_info[0]   # Aquí tomamos el nombre del equipo
-        puntos = equipo_info[4]   # Aquí obtenemos el número de Puntos de dicho equipo
-        print(f"{equipo}: {puntos} puntos") # Mostramos en pantalla ambos
+        partGanados = equipo_info[1]   # Aquí tomamos número de partidos ganados
+        partEmpatado = equipo_info[2]   # Aquí tomamos número de partidos empatados
+        puntos = partGanados * 3 + partEmpatado  # Aquí tomamos calculamos los puntos
+        print(f"{equipo}: {puntos} puntos") # Mostramos en pantalla
+
