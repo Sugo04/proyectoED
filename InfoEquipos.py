@@ -6,55 +6,41 @@
 def InfoEquipos(datosliga, equipos):
     
     # Dentro de esta lista se almacenarán las tuplas que serán creadas en esta función
-    infoEquipos=[]
+    infoEquipos = []
 
-    #Le he querido añadir un encabezado, no queda bien del todo pero siempre se puede comentar esta linea u eliminarla.
-    infoEquipos.append(("Equipo", "Partidos Ganados", "Partidos Empatados", "Partidos Perdidos", "Puntos"))
+    # Le he querido añadir un encabezado, no queda bien del todo pero siempre se puede comentar esta linea u eliminarla.
+    infoEquipos.append(("Equipo", "Partidos Ganados", "Partidos Empatados", "Partidos Perdidos"))
 
-    # Le asignamos a cada equipo contadores de los partidos ganados, empatados, pertidos y sus puntos por defecto
-    # que será 0 en todos, básicamente, ya a partir de aquí vamos sumando dependiendo de los resultados
-    # de los datos de la liga (están en el diccionario datosliga).
+    # Le asignamos a cada equipo contadores de los partidos ganados, empatados y partidos perdidos
     for iEquipo in equipos:
-        partGanados=0
-        partEmpatado=0
-        partPerdido=0
-        puntos=0
+        partGanados = 0
+        partEmpatado = 0
+        partPerdido = 0
     
         for iPartido in datosliga:
-            # Dependiendo de cómo estén nombradas las claves del diccionario datosliga se
-            # deberá cambiar las claves de este bucle for. Estos nombres son provisionales
+            local = iPartido["local"]
+            visitante = iPartido["visitante"]
+            golesLocal = iPartido["golesLocales"]
+            golesVisitante = iPartido["golesVisitante"]
 
-            local=iPartido["local"]
-            visitante=iPartido["visitante"]
-            golesLocal=iPartido["golesLocales"]
-            golesVisitante=iPartido["golesVisitante"]
-
-            # Aquí, dependiendo de si el equipo en que se encuentra el bucle es local o no,
-            # entonces deberemos hacer una comparación u otra para comenzar a asignar valores
-            # a los contadores
             if local == iEquipo:
                 if golesLocal > golesVisitante:
                     partGanados += 1
-                    puntos += 3
                 elif golesLocal == golesVisitante:
                     partEmpatado += 1
-                    puntos += 1
                 else:
                     partPerdido += 1
             
             elif visitante == iEquipo:
                 if golesVisitante > golesLocal:
                     partGanados += 1
-                    puntos += 3
                 elif golesVisitante == golesLocal:
                     partEmpatado += 1
-                    puntos += 1
                 else:
                     partPerdido += 1
 
-        # Aquí una vez se hayan sumado los resultados correspondientes a los contadores estos serán
-        # almacenados en una tupla, así hasta que finalice con todos los datos
-        infoEquipos.append((iEquipo, partGanados, partEmpatado, partPerdido, puntos))
+        # Almacenamos los datos en una tupla y los agregamos a la lista de infoEquipos
+        infoEquipos.append((iEquipo, partGanados, partEmpatado, partPerdido))
 
     return infoEquipos
 
