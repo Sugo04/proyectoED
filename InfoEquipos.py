@@ -11,8 +11,8 @@ def InfoEquipos(datosliga, equipos):
     # Dentro de esta lista se almacenarán las tuplas que serán creadas en esta función
     infoEquipos = []
 
-    # Le he querido añadir un encabezado, no queda bien del todo pero siempre se puede comentar esta linea u eliminarla.
-    infoEquipos.append(("Equipo", "Partidos Ganados", "Partidos Empatados", "Partidos Perdidos"))
+    # # Le he querido añadir un encabezado, no queda bien del todo pero siempre se puede comentar esta linea u eliminarla.
+    # infoEquipos.append(("Equipo", "Partidos Ganados", "Partidos Empatados", "Partidos Perdidos", "Puntos"))
 
     # Le asignamos a cada equipo contadores de los partidos ganados, empatados y partidos perdidos
     for iEquipo in equipos:
@@ -43,12 +43,12 @@ def InfoEquipos(datosliga, equipos):
                 else:
                     partPerdido += 1
         # Calculamos los puntos de cada equipo
-        puntos = p.Puntos([iEquipo, partGanados, partEmpatado, partPerdido])
-
+        info=[iEquipo, partGanados, partEmpatado, partPerdido]
+        puntos=p.Puntos(info)
         # Almacenamos los datos en una tupla y los agregamos a la lista de infoEquipos
-        infoEquipos.append((iEquipo, partGanados, partEmpatado, partPerdido, puntos))
-                
-        # Ordenamos la lista según sus puntos
-    infoEquipos=c.Clasificacion(infoEquipos)
-        
-    print(infoEquipos)
+        infoEquipos.append([iEquipo, partGanados, partEmpatado, partPerdido, puntos])
+    
+    # Ordenamos la lista según sus puntos saltandonos la primera fila
+    infoEquipos=c.Clasificacion(infoEquipos[1:])
+    for i in infoEquipos: 
+        print(i)
