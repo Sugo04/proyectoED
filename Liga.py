@@ -5,11 +5,8 @@
 # Alumnos: Miguel Ángel Bernal, Emilio Neva, Héctor Martín
 
 import LeerPartidos as lp
-import InfoEquipos as ie
-import Equipos as e
+import impClasificacion as ic
 
-liga=lp.leerEquipos()
-
-equipos=e.Equipos(liga)
-
-ie.InfoEquipos(liga,equipos)
+#llamamos las funciones que van a hacer el trabajo
+liga=lp.leerEquipos()    
+ic.impClasificacion(liga)
