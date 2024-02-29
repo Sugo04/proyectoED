@@ -4,56 +4,59 @@
 # en cada tupla se guarda un equipo con los partidos ganados, empatados y perdidos y los puntos obtenidos.
 
 def InfoEquipos(datosliga, equipos):
+    #Importamos las demás funciones y le aplicamos un alias a cada una
+    import QuienGana as qg
+    import Puntos as p
+    import Clasificacion as c
     
     # Dentro de esta lista se almacenarán las tuplas que serán creadas en esta función
-    infoEquipos=[]
+    infoEquipos = []
 
-    #Le he querido añadir un encabezado, no queda bien del todo pero siempre se puede comentar esta linea u eliminarla.
-    infoEquipos.append(("Equipo", "Partidos Ganados", "Partidos Empatados", "Partidos Perdidos", "Puntos"))
+    # # Le he querido añadir un encabezado, no queda bien del todo pero siempre se puede comentar esta linea u eliminarla.
+    # infoEquipos.append(("Equipo", "Partidos Ganados", "Partidos Empatados", "Partidos Perdidos", "Puntos"))
 
-    # Le asignamos a cada equipo contadores de los partidos ganados, empatados, pertidos y sus puntos por defecto
-    # que será 0 en todos, básicamente, ya a partir de aquí vamos sumando dependiendo de los resultados
-    # de los datos de la liga (están en el diccionario datosliga).
+    # Le asignamos a cada equipo contadores de los partidos ganados, empatados y partidos perdidos
     for iEquipo in equipos:
-        partGanados=0
-        partEmpatado=0
-        partPerdido=0
-        puntos=0
-    
+        partGanados = 0
+        partEmpatado = 0
+        partPerdido = 0
+
+        # Recorremos los datos de la liga
         for iPartido in datosliga:
-            # Dependiendo de cómo estén nombradas las claves del diccionario datosliga se
-            # deberá cambiar las claves de este bucle for. Estos nombres son provisionales
+            local = iPartido["Team 1"]
+            visitante = iPartido["Team 2"]
+            resultados= iPartido["FT"]
 
-            local=iPartido["local"]
-            visitante=iPartido["visitante"]
-            golesLocal=iPartido["golesLocales"]
-            golesVisitante=iPartido["golesVisitante"]
-
-            # Aquí, dependiendo de si el equipo en que se encuentra el bucle es local o no,
-            # entonces deberemos hacer una comparación u otra para comenzar a asignar valores
-            # a los contadores
+            # Verificamos si el equipo estaba jugando como local, de no ser así
+            # será identificado como visitante
             if local == iEquipo:
-                if golesLocal > golesVisitante:
+                # Verificamos el resultado del partido y sumamos +1 en el contador correspondiente
+                resultado= qg.QuienGana(resultados)
+                if resultado==1:
                     partGanados += 1
-                    puntos += 3
-                elif golesLocal == golesVisitante:
+                elif resultado==0:
                     partEmpatado += 1
-                    puntos += 1
                 else:
                     partPerdido += 1
             
             elif visitante == iEquipo:
-                if golesVisitante > golesLocal:
+                # Verificamos el resultado del partido y sumamos +1 en el contador correspondiente
+                resultado= qg.QuienGana(resultados)
+                if resultado==1:
                     partGanados += 1
-                    puntos += 3
-                elif golesVisitante == golesLocal:
+                elif resultado==0:
                     partEmpatado += 1
-                    puntos += 1
                 else:
                     partPerdido += 1
 
-        # Aquí una vez se hayan sumado los resultados correspondientes a los contadores estos serán
-        # almacenados en una tupla, así hasta que finalice con todos los datos
-        infoEquipos.append((iEquipo, partGanados, partEmpatado, partPerdido, puntos))
-
+        # Calculamos los puntos de cada equipo, para ello accedemos a la funcion Puntos
+        info=[iEquipo, partGanados, partEmpatado, partPerdido]
+        puntos=p.Puntos(info)
+        # Almacenamos los datos en una tupla y los agregamos a la lista de infoEquipos
+        infoEquipos.append([iEquipo, partGanados, partEmpatado, partPerdido, puntos])
+    
+    # Ordenamos la lista según sus puntos saltandonos la primera fila, debemos utilizar la funcion CLasificacion
+    infoEquipos=c.Clasificacion(infoEquipos)
+    
+    # Devolvemos los resultados en pantalla
     return infoEquipos

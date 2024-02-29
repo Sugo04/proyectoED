@@ -16,9 +16,8 @@ def leerEquipos():
             # lo cual considero que puede ser una manera muy eficiente de leer los archivos como diccionarios directamente
             csv_reader = csv.DictReader(file , delimiter=',')
             
-            # Nos saltamos la primera línea para sacarla de la ordenación (Mis ganas de comentar todo lo que hago JAJAJAJ)
+            # Nos saltamos la primera línea para sacarla de la ordenación
             next(csv_reader)
-            
             # recorremos todo el lector y agregamos en la lista cada diccionario con una variable lista que es la que recorre nuestro fichero csv
             for fila in csv_reader:
                 liga.append(fila)       
